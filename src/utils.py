@@ -1,4 +1,4 @@
-from constants import STATIC_PATH
+from src.constants import STATIC_PATH
 from uuid import uuid4
 import matplotlib.pyplot as plt
 from pandas import DataFrame
