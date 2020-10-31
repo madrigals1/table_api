@@ -3,7 +3,6 @@ version: "3"
 services:
   table_api:
     build: .
-    container_name: table_api
     ports:
       - "5000:5000"
     command: flask run
