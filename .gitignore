@@ -2,3 +2,4 @@
 .vscode
 .env
 static/images/*
+!static/images/.keep
