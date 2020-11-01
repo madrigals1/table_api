@@ -5,7 +5,9 @@ services:
     build: .
     ports:
       - "5000:5000"
-    command: flask run
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - /usr/src/app
     environment:
       - VIRTUAL_HOST=table-api.adigame.dev
       - VIRTUAL_PORT=5000
