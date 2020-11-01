@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  table_api:
+  backend:
     build: .
     ports:
       - "5000:5000"
@@ -12,4 +12,10 @@ services:
       - VIRTUAL_PORT=5000
       - LETSENCRYPT_HOST=table-api.adigame.dev
       - LETSENCRYPT_EMAIL=sabyrbayev.adi32@gmail.com
+    networks:
+      - proxy
 
+networks:
+  proxy:
+    external:
+      name: nginx-proxy

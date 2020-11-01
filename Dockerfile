@@ -10,4 +10,6 @@ COPY . /usr/src/app
 RUN pip install pipenv
 RUN pipenv install --system --deploy
 
+EXPOSE 5000
+
 CMD ["python", "manage.py", "run", "-h", "0.0.0.0"]
