@@ -10,4 +10,4 @@ COPY . /usr/src/app
 RUN pip install pipenv
 RUN pipenv install --system --deploy
 
-CMD ["python", "manage.py run -h 0.0.0.0"]
+CMD ["python", "manage.py", "run", "-h", "0.0.0.0"]
