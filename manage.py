@@ -1,9 +1,9 @@
 from flask.cli import FlaskGroup
 
-from . import src
+from src import app
 
 
-cli = FlaskGroup(src)
+cli = FlaskGroup(app)
 
 
 if __name__ == "__main__":
