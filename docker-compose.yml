@@ -7,7 +7,7 @@ services:
       - "5000:5000"
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - /usr/src/app
+      - ./:/usr/src/app
     environment:
       - VIRTUAL_HOST=table-api.adigame.dev
       - VIRTUAL_PORT=5000
