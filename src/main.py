@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from src.utils import create_png_from_dict
 from flask import request
 
@@ -26,3 +26,8 @@ def convert():
         return Flask.abort(404)
 
     return {"link": create_png_from_dict(table)}
+
+
+@app.route("/static/<path:path>")
+def static_dir(path):
+    return send_from_directory("static", path)
