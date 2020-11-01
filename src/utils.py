@@ -46,7 +46,7 @@ def create_png_from_dict(dict):
 
     fig, ax = render_mpl_table(data_frame, header_columns=0, col_width=1.5)
     table_uid = uuid4()
-    root = project_root_path()
+    root = str(project_root_path())
     static_path = f"/static/images/{table_uid}.png"
     path = root + static_path
     fig.savefig(path)
