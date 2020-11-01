@@ -1,12 +1,11 @@
 from flask import Flask
-from src.constants import STATIC_PATH, FLASK_DEBUG
+from src.constants import STATIC_PATH
 from src.utils import create_png_from_dict
 from flask import request
 
 # Run app
-debug_mode = FLASK_DEBUG == 1
 app = Flask(__name__, static_url_path=f"/{STATIC_PATH}")
-app.run(debug=debug_mode)
+app.run()
 
 
 @app.route("/")
