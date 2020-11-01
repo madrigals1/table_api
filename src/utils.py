@@ -50,4 +50,4 @@ def create_png_from_dict(dict):
     path = f"{root}/{STATIC_PATH}/images/{table_uid}.png"
     fig.savefig(path)
 
-    return f"/{path}"
+    return f"{path}"
