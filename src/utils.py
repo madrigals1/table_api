@@ -1,4 +1,4 @@
-from src.constants import STATIC_PATH, project_root_path
+from src.constants import project_root_path
 from uuid import uuid4
 import matplotlib.pyplot as plt
 from pandas import DataFrame
@@ -47,7 +47,7 @@ def create_png_from_dict(dict):
     fig, ax = render_mpl_table(data_frame, header_columns=0, col_width=1.5)
     table_uid = uuid4()
     root = project_root_path()
-    path = f"{root}/{STATIC_PATH}/images/{table_uid}.png"
+    path = f"{root}/static/images/{table_uid}.png"
     fig.savefig(path)
 
     return f"{path}"
