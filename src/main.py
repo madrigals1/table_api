@@ -1,9 +1,8 @@
 from flask import Flask, jsonify
-from src.constants import STATIC_PATH
 from src.utils import create_png_from_dict
 from flask import request
 
-app = Flask(__name__, static_url_path=f"/{STATIC_PATH}")
+app = Flask(__name__)
 
 
 @app.route("/")
