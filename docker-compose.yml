@@ -7,6 +7,7 @@ services:
       - "5000:5000"
     volumes:
       - ./:/usr/src/app
+      - static:/usr/src/app/static
     environment:
       - VIRTUAL_HOST=table-api.adigame.dev
       - VIRTUAL_PORT=5000
@@ -19,3 +20,6 @@ networks:
   proxy:
     external:
       name: nginx-proxy
+
+volumes:
+  static:
