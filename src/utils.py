@@ -48,8 +48,11 @@ def create_png_from_dict(dict):
     fig, ax = render_mpl_table(data_frame, header_columns=0, col_width=1.5)
     table_uid = uuid4()
     root = str(project_root_path())
-    image_path = os.path.join("images", f"{table_uid}.png")
-    full_path = os.path.join(root, "static", image_path)
+    cwd = os.getcwd()
+    image_path = f"images/{table_uid}.png"
+    if not os.path.exists(f"{cwd}/static/images"):
+        os.makedirs(f"{cwd}/static/images")
+    full_path = f"{root}/static/{image_path}"
     fig.savefig(full_path)
 
     return os.path.join(STATIC_HOSTING_URL, image_path)
