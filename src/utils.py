@@ -1,8 +1,9 @@
-from src.constants import project_root_path
+from src.constants import project_root_path, STATIC_HOSTING_URL
 from uuid import uuid4
 import matplotlib.pyplot as plt
 from pandas import DataFrame
 import numpy as np
+import os
 
 
 def render_mpl_table(
@@ -47,8 +48,8 @@ def create_png_from_dict(dict):
     fig, ax = render_mpl_table(data_frame, header_columns=0, col_width=1.5)
     table_uid = uuid4()
     root = str(project_root_path())
-    static_path = f"/static/images/{table_uid}.png"
-    path = root + static_path
-    fig.savefig(path)
+    image_path = os.path.join("images", f"{table_uid}.png")
+    full_path = os.path.join(root, "static", image_path)
+    fig.savefig(full_path)
 
-    return static_path
+    return os.path.join(STATIC_HOSTING_URL, image_path)
