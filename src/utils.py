@@ -44,7 +44,7 @@ def table_dict_to_html(table_dict):
     return before + header_row + body + after
 
 
-async def create_png_from_dict(table_dict):
+def create_png_from_dict(table_dict):
     """ Create PNG image from Table Dict """
 
     # Get root path of project
