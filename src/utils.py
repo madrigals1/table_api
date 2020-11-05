@@ -33,14 +33,9 @@ def table_dict_to_html(table_dict):
     header_row = f"<tr>{headers}</tr>"
     body = ""
     for row in table_dict:
-        body += f"""
-        <tr>
-            <th>${row['name']}</th>
-            <th>${row['time']}</th>
-            <th>${row['language']}</th>
-            <th>${row['status']}</th>
-        </tr>
-        """
+        body += "<tr>"
+        body += "".join([f"<th>{value}</th>" for value in row.values()])
+        body += "</tr>"
     return before + header_row + body + after
 
 
