@@ -26,8 +26,3 @@ def convert():
         return Flask.abort(404)
 
     return {"link": create_png_from_dict(table)}
-
-
-@app.route("/static/<path:path>")
-def static_dir(path):
-    return send_from_directory("static", path)
