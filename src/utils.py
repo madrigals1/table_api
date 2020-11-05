@@ -34,7 +34,7 @@ def table_dict_to_html(table_dict):
     body = ""
     for row in table_dict:
         body += "<tr>"
-        body += "".join([f"<th>{value}</th>" for value in row.values()])
+        body += "".join([f"<td>{value}</td>" for value in row.values()])
         body += "</tr>"
     return before + header_row + body + after
 
