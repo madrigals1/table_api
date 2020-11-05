@@ -62,6 +62,8 @@ def create_png_from_dict(table_dict):
     html = table_dict_to_html(table_dict)
     with open(html_path, "w+") as f:
         f.write(html)
-        imgkit.from_file(f, image_path)
+
+    # Create PNG image
+    imgkit.from_file(html_path, image_path)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
