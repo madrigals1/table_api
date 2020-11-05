@@ -63,7 +63,9 @@ def create_png_from_dict(table_dict):
     with open(html_path, "w+") as f:
         f.write(html)
 
+    # Options for wkhtmltopdf
+    options = {"encoding": "UTF-8"}
     # Create PNG image
-    imgkit.from_file(html_path, image_path)
+    imgkit.from_file(html_path, image_path, options=options)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
