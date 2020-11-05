@@ -47,8 +47,8 @@ def create_png_from_dict(table_dict):
 
     # Generate unique name for image
     image_uid = uuid4()
-    hosting_path = f"static/{image_uid}.png"
-    image_path = f"{root}/{hosting_path}"
+    hosting_path = f"{image_uid}.png"
+    image_path = f"{root}/static/{hosting_path}"
 
     # Table path
     html_name = "tmp.html"
