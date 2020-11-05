@@ -1,58 +1,80 @@
-from src.constants import project_root_path, STATIC_HOSTING_URL
+from src.constants import STATIC_HOSTING_URL, project_root_path
 from uuid import uuid4
-import matplotlib.pyplot as plt
-from pandas import DataFrame
-import numpy as np
 import os
+from pyppeteer import launch
 
 
-def render_mpl_table(
-    data,
-    col_width=3.0,
-    row_height=0.625,
-    font_size=14,
-    header_color="#40466e",
-    row_colors=["#f1f1f2", "w"],
-    edge_color="w",
-    bbox=[-0.1615, -0.138, 1.29, 1.29],
-    header_columns=0,
-    ax=None,
-    **kwargs,
-):
-    if ax is None:
-        size = (np.array(data.shape[::-1]) + np.array([0, 1])) * np.array(
-            [col_width, row_height]
-        )
-        fig, ax = plt.subplots(figsize=size)
-        ax.axis("off")
-    mpl_table = ax.table(
-        cellText=data.values, bbox=bbox, colLabels=data.columns, **kwargs
-    )
-    mpl_table.auto_set_font_size(False)
-    mpl_table.set_fontsize(font_size)
+def table_dict_to_html(table_dict):
+    before = """
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+    """
+    after = "</table></body></html>"
+    headers = "".join([f"<th>{key}</th>" for key in table_dict[0]])
+    header_row = f"<tr>{headers}</tr>"
+    body = ""
+    for row in table_dict:
+        body += f"""
+        <tr>
+            <th>${row['name']}</th>
+            <th>${row['time']}</th>
+            <th>${row['language']}</th>
+            <th>${row['status']}</th>
+        </tr>
+        """
+    return before + header_row + body + after
 
-    for k, cell in mpl_table._cells.items():
-        cell.set_edgecolor(edge_color)
-        if k[0] == 0 or k[1] < header_columns:
-            cell.set_text_props(weight="bold", color="w")
-            cell.set_facecolor(header_color)
-        else:
-            cell.set_facecolor(row_colors[k[0] % len(row_colors)])
-    return ax.get_figure(), ax
 
+async def create_png_from_dict(table_dict):
+    """ Create PNG image from Table Dict """
 
-def create_png_from_dict(dict):
-    # Create dataframe
-    data_frame = DataFrame.from_dict(dict)
+    # Get root path of project
+    root = project_root_path()
 
-    fig, ax = render_mpl_table(data_frame, header_columns=0, col_width=1.5)
-    table_uid = uuid4()
-    root = str(project_root_path())
-    cwd = os.getcwd()
-    image_path = f"images/{table_uid}.png"
-    if not os.path.exists(f"{cwd}/static/images"):
-        os.makedirs(f"{cwd}/static/images")
-    full_path = f"{root}/static/{image_path}"
-    fig.savefig(full_path)
+    # Generate unique name for image
+    image_uid = uuid4()
+    hosting_path = f"static/{image_uid}.png"
+    image_path = f"{root}/{hosting_path}"
 
-    return os.path.join(STATIC_HOSTING_URL, image_path)
+    # Table path
+    html_name = "tmp.html"
+    html_path = f"{root}/static/{html_name}"
+
+    # Save HTML
+    html = table_dict_to_html(table_dict)
+    with open(html_path, "w+") as f:
+        f.write(html)
+
+    # If path for file doesn't exist, create it
+    if not os.path.exists(f"{root}/static"):
+        os.makedirs(f"{root}/static")
+
+    # Create puppeteer page
+    browser = await launch()
+    page = await browser.newPage()
+
+    # Make screenshot of page
+    await page.goto(html_path)
+    await page.screenshot({"path": image_path, "fullPage": True})
+    await browser.close()
+
+    return f"{STATIC_HOSTING_URL}/{hosting_path}"
