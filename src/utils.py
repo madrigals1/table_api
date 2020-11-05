@@ -1,7 +1,7 @@
 from src.constants import STATIC_HOSTING_URL, project_root_path
 from uuid import uuid4
 import os
-from pyppeteer import launch
+import imgkit
 
 
 def table_dict_to_html(table_dict):
@@ -59,22 +59,14 @@ async def create_png_from_dict(table_dict):
     html_name = "tmp.html"
     html_path = f"{root}/static/{html_name}"
 
-    # Save HTML
-    html = table_dict_to_html(table_dict)
-    with open(html_path, "w+") as f:
-        f.write(html)
-
     # If path for file doesn't exist, create it
     if not os.path.exists(f"{root}/static"):
         os.makedirs(f"{root}/static")
 
-    # Create puppeteer page
-    browser = await launch()
-    page = await browser.newPage()
-
-    # Make screenshot of page
-    await page.goto(html_path)
-    await page.screenshot({"path": image_path, "fullPage": True})
-    await browser.close()
+    # Save HTML
+    html = table_dict_to_html(table_dict)
+    with open(html_path, "w+") as f:
+        f.write(html)
+        imgkit.from_file(f, image_path)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"

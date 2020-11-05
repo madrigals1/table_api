@@ -1,5 +1,7 @@
 FROM python:3.8.1-slim-buster
 
+RUN apt-get -y install wkhtmltopdf
+
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1

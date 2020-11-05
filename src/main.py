@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 from src.utils import create_png_from_dict
 from flask import request
-import asyncio
 
 app = Flask(__name__)
 
@@ -26,6 +25,4 @@ def convert():
     if not table:
         return jsonify(detail="Please, provide 'table' in request body")
 
-    return {
-        "link": asyncio.get_event_loop().run_until_complete(create_png_from_dict(table))
-    }
+    return {"link": create_png_from_dict(table)}
