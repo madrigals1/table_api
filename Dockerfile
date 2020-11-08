@@ -1,16 +1,15 @@
 FROM python:3.8.6-alpine
 
-RUN apk add wkhtmltopdf
+RUN apk add --no-cache wkhtmltopdf
 
 WORKDIR /usr/src/app
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+COPY Pipfile* ./
 
-COPY . /usr/src/app
+RUN pip install --no-cache-dir pipenv && \
+    pipenv install --system --deploy --clear
 
-RUN pip install pipenv
-RUN pipenv install --system --deploy
+COPY . .
 
 EXPOSE 5000
 
