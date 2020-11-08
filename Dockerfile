@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 
 COPY Pipfile* ./
 
-RUN pip install --no-cache-dir pipenv && \
-    pipenv install --system --deploy --clear
+RUN pip install pipenv && \
+    pipenv install --system --deploy
 
 COPY . .
 
