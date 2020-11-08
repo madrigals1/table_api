@@ -1,7 +1,6 @@
-FROM python:3.8.1-slim-buster
+FROM python:3.8.6-alpine
 
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get -y install wkhtmltopdf
+RUN apk add wkhtmltopdf
 
 WORKDIR /usr/src/app
 
