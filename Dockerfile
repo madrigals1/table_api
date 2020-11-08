@@ -1,6 +1,6 @@
 FROM python:3.8.6-alpine
 
-RUN apk add --no-cache wkhtmltopdf
+RUN apk add wkhtmltopdf
 
 WORKDIR /usr/src/app
 
