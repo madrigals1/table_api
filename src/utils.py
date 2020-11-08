@@ -47,16 +47,16 @@ def create_png_from_dict(table_dict):
 
     # Generate unique name for image
     image_uid = uuid4()
-    hosting_path = f"{image_uid}.png"
-    image_path = f"{root}/{IMAGES_PATH}/{hosting_path}"
+    hosting_path = f"{IMAGES_PATH}/{image_uid}.png"
+    image_path = f"{root}/static/{hosting_path}"
 
     # Table path
     html_name = "tmp.html"
-    html_path = f"{root}/{IMAGES_PATH}/{html_name}"
+    html_path = f"{root}/static/{IMAGES_PATH}/{html_name}"
 
     # If path for file doesn't exist, create it
-    if not os.path.exists(f"{root}/{IMAGES_PATH}"):
-        os.makedirs(f"{root}/{IMAGES_PATH}")
+    if not os.path.exists(f"{root}/static/{IMAGES_PATH}"):
+        os.makedirs(f"{root}/static/{IMAGES_PATH}")
 
     # Save HTML
     html = table_dict_to_html(table_dict)
