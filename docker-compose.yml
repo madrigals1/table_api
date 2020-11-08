@@ -4,19 +4,19 @@ services:
   backend:
     build: .
     ports:
-      - "5000:5000"
+      - "${PORT}:5000"
     volumes:
-      - ./:/usr/src/app
-      - /var/www/static:/usr/src/app/static
+      - "./:/usr/src/app"
+      - "${DOCKER_STATIC_HOSTING}:/usr/src/app/static"
     environment:
-      - VIRTUAL_HOST=table-api.adigame.dev
-      - VIRTUAL_PORT=5000
-      - LETSENCRYPT_HOST=table-api.adigame.dev
-      - LETSENCRYPT_EMAIL=sabyrbayev.adi32@gmail.com
+      VIRTUAL_HOST: ${SSL_DOMAIN}
+      VIRTUAL_PORT: ${PORT}
+      LETSENCRYPT_HOST: ${SSL_DOMAIN}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     networks:
       - proxy
 
 networks:
   proxy:
     external:
-      name: nginx-proxy
+      name: ${NGINX_PROXY_NETWORK}
