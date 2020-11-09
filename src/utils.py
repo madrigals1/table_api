@@ -7,6 +7,7 @@ from src.constants import (
 from uuid import uuid4
 import os
 import imgkit
+import pngquant
 
 
 def table_dict_to_html(table_dict):
@@ -59,4 +60,13 @@ def create_png_from_dict(table_dict):
     # Create PNG image
     imgkit.from_file(html_path, image_path, options=options)
 
+    # Compress the image
+    compress_image(image_path)
+
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
+
+
+def compress_image(path):
+    """ Compress image to take less space """
+
+    pngquant.quant_image(path)
