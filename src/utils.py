@@ -1,41 +1,32 @@
-from src.constants import STATIC_HOSTING_URL, project_root_path, IMAGES_PATH
+from src.constants import (
+    STATIC_HOSTING_URL,
+    project_root_path,
+    IMAGES_PATH,
+    TABLE_HTML_CONTENT,
+)
 from uuid import uuid4
 import os
 import imgkit
 
 
 def table_dict_to_html(table_dict):
-    before = """
-<html lang="en">
-  <head>
-    <title>Title</title>
-    <style>
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-      td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-    </style>
-  </head>
-  <body>
-    <table>
-    """
-    after = "</table></body></html>"
+    """ Generate HTML string from Python Dict """
+
+    # Content before and after table
+    before = TABLE_HTML_CONTENT.get("before")
+    after = TABLE_HTML_CONTENT.get("after")
+
+    # Table headers
     headers = "".join([f"<th>{key}</th>" for key in table_dict[0]])
     header_row = f"<tr>{headers}</tr>"
+
+    # Table body
     body = ""
     for row in table_dict:
         body += "<tr>"
         body += "".join([f"<td>{value}</td>" for value in row.values()])
         body += "</tr>"
+
     return before + header_row + body + after
 
 
