@@ -14,6 +14,11 @@ def project_root_path():
 
 
 TABLE_CSS = """
+@page {
+    size: A5;
+    margin: 0.5cm;
+}
+
 unicode {
     font-family: 'OpenSansEmoji', sans-serif;
 }
