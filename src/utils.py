@@ -53,9 +53,6 @@ def create_png_from_dict(table_dict):
     # Save HTML
     html = table_dict_to_html(table_dict)
 
-    # DELETE THIS
-    print(html)
-
     with open(html_path, "w+") as f:
         f.write(html)
 
