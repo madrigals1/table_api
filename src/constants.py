@@ -32,7 +32,7 @@ tr:nth-child(even) {
 
 TABLE_HTML_CONTENT = {
     "before": (
-        '<html lang="en"><head><title>Title</title>'
+        '<html lang="en"><head><meta charset="utf-8"><title>Title</title>'
         f"<style>{TABLE_CSS}</style></head><body><table>"
     ),
     "after": "</table></body></html>",
