@@ -2,20 +2,17 @@ from src.constants import (
     STATIC_HOSTING_URL,
     project_root_path,
     IMAGES_PATH,
-    TABLE_HTML_CONTENT,
+    TABLE_CSS,
 )
 from uuid import uuid4
 import os
-import imgkit
 import pngquant
+from weasyprint import HTML, CSS
+from weasyprint.fonts import FontConfiguration
 
 
 def table_dict_to_html(table_dict):
     """ Generate HTML string from Python Dict """
-
-    # Content before and after table
-    before = TABLE_HTML_CONTENT.get("before")
-    after = TABLE_HTML_CONTENT.get("after")
 
     # Table headers
     headers = "".join([f"<th>{key}</th>" for key in table_dict[0]])
@@ -24,11 +21,15 @@ def table_dict_to_html(table_dict):
     # Table body
     body = ""
     for row in table_dict:
-        body += "<tr>"
-        body += "".join([f"<td>{value}</td>" for value in row.values()])
-        body += "</tr>"
+        body += (
+            "<tr>"
+            + "".join([f"<td>{value}</td>" for value in row.values()]) +
+            "</tr>"
+        )
 
-    return before + header_row + body + after
+    html = "<table>" + header_row + body + "</table>"
+
+    return HTML(string=html)
 
 
 def create_png_from_dict(table_dict):
@@ -50,21 +51,21 @@ def create_png_from_dict(table_dict):
     if not os.path.exists(f"{root}/static/{IMAGES_PATH}"):
         os.makedirs(f"{root}/static/{IMAGES_PATH}")
 
-    # Save HTML
-    html_str = table_dict_to_html(table_dict)
-
-    with open(html_path, "w+") as f:
-        f.write(html_str)
-
-    # Options for wkhtmltopdf
-    options = {"encoding": "UTF-8"}
-    # Create PNG image
-    imgkit.from_file(html_path, image_path, options=options)
+    # Convert to png
+    convert_table_dict_to_png(table_dict, image_path)
 
     # Compress the image
     compress_image(image_path)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
+
+
+def convert_table_dict_to_png(table_dict, image_path):
+    # Configuration is used
+    font_config = FontConfiguration()
+    html_object = table_dict_to_html(table_dict)
+    css_object = CSS(string=TABLE_CSS, font_config=font_config)
+    html_object.write_png(image_path, stylesheets=[css_object], font_config=font_config)
 
 
 def compress_image(path):

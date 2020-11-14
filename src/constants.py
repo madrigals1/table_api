@@ -38,13 +38,3 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 """
-
-TABLE_HTML_CONTENT = {
-    "before": (
-        '<html lang="en"><head>'
-        '<meta http-equiv="Content-Type" content="text/html" charset="utf-8">'
-        "<title>Title</title>"
-        f"<style>{TABLE_CSS}</style></head><body><table>"
-    ),
-    "after": "</table></body></html>",
-}
