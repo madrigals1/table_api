@@ -15,7 +15,7 @@ def project_root_path():
 
 TABLE_CSS = """
 @page {
-    size: A3;
+    size: A5;
     margin: 0.5cm;
 }
 
