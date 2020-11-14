@@ -13,6 +13,15 @@ def project_root_path():
 
 
 TABLE_CSS = """
+unicode {
+    font-family: 'OpenSansEmoji', sans-serif;
+}
+
+@font-face {
+    font-family: 'OpenSansEmoji';
+    src: url(data:font/truetype;charset=utf-8;base64,<-- encoded_font_base64_string-->) format('truetype');
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -32,7 +41,9 @@ tr:nth-child(even) {
 
 TABLE_HTML_CONTENT = {
     "before": (
-        '<html lang="en"><head><meta charset="utf-8"><title>Title</title>'
+        '<html lang="en"><head>'
+        '<meta http-equiv="Content-Type" content="text/html" charset="utf-8">'
+        "<title>Title</title>"
         f"<style>{TABLE_CSS}</style></head><body><table>"
     ),
     "after": "</table></body></html>",
