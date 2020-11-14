@@ -1,6 +1,10 @@
 FROM python:3.8.6-slim-buster
 
-RUN apt-get -qy install --no-install-recommends pngquant
+RUN apt-get update -qy \
+    && apt-get -qy install --no-install-recommends wget \
+    && wget -nv -O /tmp/wkhtmltox.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && apt-get -qy install --no-install-recommends /tmp/wkhtmltox.deb \
+    && apt-get -qy install --no-install-recommends pngquant
 
 WORKDIR /usr/src/app
 
