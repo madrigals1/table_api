@@ -3,6 +3,7 @@ from src.constants import (
     project_root_path,
     IMAGES_PATH,
     TABLE_HTML_CONTENT,
+    COMPRESS_IMAGES,
 )
 from uuid import uuid4
 import os
@@ -62,7 +63,8 @@ def create_png_from_dict(table_dict):
     imgkit.from_file(html_path, image_path, options=options)
 
     # Compress the image
-    compress_image(image_path)
+    if COMPRESS_IMAGES:
+        compress_image(image_path)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
 
