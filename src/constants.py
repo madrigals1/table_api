@@ -6,6 +6,7 @@ load_dotenv()
 
 STATIC_HOSTING_URL = os.getenv("STATIC_HOSTING_URL")
 IMAGES_PATH = os.getenv("IMAGES_PATH")
+COMPRESS_IMAGES = os.getent("COMPRESS_IMAGES", cast=bool)
 
 
 def project_root_path():
