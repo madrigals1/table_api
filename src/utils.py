@@ -3,7 +3,6 @@ from src.constants import (
     project_root_path,
     IMAGES_PATH,
     TABLE_CSS,
-    COMPRESS_IMAGES,
 )
 from uuid import uuid4
 import os
@@ -23,7 +22,9 @@ def table_dict_to_html(table_dict):
     body = ""
     for row in table_dict:
         body += (
-            "<tr>" + "".join([f"<td>{value}</td>" for value in row.values()]) + "</tr>"
+            "<tr>"
+            + "".join([f"<td>{value}</td>" for value in row.values()]) +
+            "</tr>"
         )
 
     html = "<table>" + header_row + body + "</table>"
@@ -54,8 +55,7 @@ def create_png_from_dict(table_dict):
     convert_table_dict_to_png(table_dict, image_path)
 
     # Compress the image
-    if COMPRESS_IMAGES:
-        compress_image(image_path)
+    compress_image(image_path)
 
     return f"{STATIC_HOSTING_URL}/{hosting_path}"
 
