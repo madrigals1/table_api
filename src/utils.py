@@ -8,6 +8,7 @@ from uuid import uuid4
 import os
 import imgkit
 import pngquant
+import html
 
 
 def table_dict_to_html(table_dict):
@@ -53,8 +54,11 @@ def create_png_from_dict(table_dict):
     # Save HTML
     html_str = table_dict_to_html(table_dict)
 
+    # Escape all emojis
+    html_escapted_str = html.escape(html_str)
+
     with open(html_path, "w+") as f:
-        f.write(html_str)
+        f.write(html_escapted_str)
 
     # Options for wkhtmltopdf
     options = {"encoding": "UTF-8"}
