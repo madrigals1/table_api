@@ -3,6 +3,7 @@ version: "3"
 services:
   backend:
     build: .
+    container_name: table_api
     ports:
       - "${PORT}:5000"
     volumes:
