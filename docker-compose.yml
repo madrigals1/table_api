@@ -16,9 +16,9 @@ services:
       PYTHONUNBUFFERED: ${PYTHONUNBUFFERED}
       PYTHONIOENCODING: ${PYTHONIOENCODING}
     networks:
-      - proxy
+      - https
 
 networks:
-  proxy:
+  https:
     external:
-      name: ${NGINX_PROXY_NETWORK}
+      name: ${HTTPS_NETWORK}
